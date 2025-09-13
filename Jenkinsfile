@@ -1,9 +1,7 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS'   // Name from Global Tool Configuration
-    }
+    tools { nodejs 'NodeJS' }
 
     environment {
         AWS_DEFAULT_REGION = "us-east-1"
