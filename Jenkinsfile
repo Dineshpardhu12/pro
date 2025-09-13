@@ -1,15 +1,19 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS-18'   // Name from Global Tool Configuration
+    }
+
     environment {
         AWS_DEFAULT_REGION = "us-east-1"
-        S3_BUCKET          = "my-react-app-bucket-03"
+        S3_BUCKET = "my-react-app-bucket-03"
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Dineshpardhu12/pro.git'
+                git branch: 'master', url: 'https://github.com/Dineshpardhu12/pro.git'
             }
         }
 
@@ -27,7 +31,6 @@ pipeline {
 
         stage('Deploy to S3') {
             steps {
-                // For Vite, build output goes to dist/, not build/
                 sh 'aws s3 sync dist/ s3://$S3_BUCKET/ --delete'
             }
         }
